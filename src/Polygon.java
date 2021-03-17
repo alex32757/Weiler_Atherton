@@ -205,9 +205,8 @@ public class Polygon implements Figure{
             p4 = tmp;
         }
 
-        //проверим существование потенциального интервала для точки пересечения отрезков
         if (p2.x < p3.x) {
-            return false; //ибо у отрезков нету взаимной абсциссы
+            return false;
         }
 
         //если оба отрезка вертикальные
@@ -215,24 +214,17 @@ public class Polygon implements Figure{
 
             //если они лежат на одном X
             if(p1.x == p3.x) {
-                //проверим пересекаются ли они, т.е. есть ли у них общий Y
-                //для этого возьмём отрицание от случая, когда они НЕ пересекаются
+                //проверим пересекаются ли они
                 if (!((Math.max(p1.y, p2.y) < Math.min(p3.y, p4.y)) ||
                         (Math.min(p1.y, p2.y) > Math.max(p3.y, p4.y)))) {
-                    return false; // поправил, так как частный случай алгоритма
+                    return false; // частный случай алгоритма
                 }
             }
             return false;
         }
 
-        //найдём коэффициенты уравнений, содержащих отрезки
-        //f1(x) = A1*x + b1 = y
-        //f2(x) = A2*x + b2 = y
-
         //если первый отрезок вертикальный
         if (p1.x - p2.x == 0) {
-
-            //найдём Xa, Ya - точки пересечения двух прямых
             int Xa = p1.x;
             float A2 = ((float) (p3.y - p4.y)) / (p3.x - p4.x);
             float b2 = p3.y - A2 * p3.x;
@@ -248,8 +240,6 @@ public class Polygon implements Figure{
 
         //если второй отрезок вертикальный
         if (p3.x - p4.x == 0) {
-
-            //найдём Xa, Ya - точки пересечения двух прямых
             int Xa = p3.x;
             float A1 = ((float) (p1.y - p2.y)) / (p1.x - p2.x);
             float b1 = p1.y - A1 * p1.x;
@@ -274,7 +264,6 @@ public class Polygon implements Figure{
             return false; //отрезки параллельны
         }
 
-        //Xa - абсцисса точки пересечения двух прямых
         int Xa = (int) ((b2 - b1) / (A1 - A2));
         int Ya = (int) (A1 * Xa + b1);
 
